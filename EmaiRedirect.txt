@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://yourserver.com/trigger', true);
+            
+            // Set the request headers if required
+            // xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    // Success! Redirect or display a success message.
+                    window.location = 'https://success-page.com';
+                } else {
+                    // We reached our target server, but it returned an error
+                    alert('There was an error with the request.');
+                }
+            };
+
+            xhr.onerror = function() {
+                // Connection error of some sort
+                alert('Unable to connect to server.');
+            };
+
+            // Send the POST request
+            // Modify this if you want to send data: xhr.send(JSON.stringify(data));
+            xhr.send();
+        };
+    </script>
+</head>
+<body>
+    Redirecting...
+</body>
+</html>
