@@ -4,36 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <script>
-        window.onload = function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://prod-141.westus.logic.azure.com:443/workflows/2afb3ff71e944b6aa6d80d52d4549edd/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zuSSbslcp7XNl4y7z0jVRpzf_JS0uhNZ9AFub5qYIlg', true);
-            
-            // Set the request headers if required
-            // xhr.setRequestHeader('Content-Type', 'application/json');
-            
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    // Success! Redirect or display a success message.
-                    window.location = 'https://google.com';
-                } else {
-                    // We reached our target server, but it returned an error
-                    alert('There was an error with the request.');
-                }
-            };
-
-            xhr.onerror = function() {
-                // Connection error of some sort
-                alert('Unable to connect to server.');
-            };
-
-            // Send the POST request
-            // Modify this if you want to send data: xhr.send(JSON.stringify(data));
-            xhr.send();
-        };
-    </script>
 </head>
 <body>
-    Redirecting...
+
+<p>Redirecting...</p>
+
+<script>
+    window.onload = function() {
+        fetch('https://prod-141.westus.logic.azure.com:443/workflows/2afb3ff71e944b6aa6d80d52d4549edd/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zuSSbslcp7XNl4y7z0jVRpzf_JS0uhNZ9AFub5qYIlg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                comment: 'Your comment here'
+            })
+        }).then(response => {
+            if (response.ok) {
+                console.log('POST request was successful');
+            } else {
+                console.error('POST request failed');
+            }
+        }).catch(error => {
+            console.error('There was a problem with the POST request:', error);
+        });
+    };
+</script>
+
 </body>
 </html>
